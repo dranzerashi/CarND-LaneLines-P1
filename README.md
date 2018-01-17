@@ -1,6 +1,6 @@
 # **Submission Files:**
 * [Writeup](https://github.com/dranzerashi/CarND-LaneLines-P1/blob/master/writeup.md)
-* [Jupyter Notebook](https://github.com/dranzerashi/CarND-LaneLines-P1/blob/master/writeup.md)
+* [Jupyter Notebook](https://github.com/dranzerashi/CarND-LaneLines-P1/blob/master/P1.ipynb)
 
 
 # **Finding Lane Lines on the Road** 
