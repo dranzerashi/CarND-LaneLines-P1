@@ -21,27 +21,27 @@ My pipeline consisted of 6 steps:
 
 1. First, I converted the images to grayscale this reduces the amount of processing.
 
-<img src="./examples/grayscale_ashi.jpg" width="240">
+    <img src="./examples/grayscale_ashi.jpg" width="240">
 
 2. Then I applied a gaussian blur on the image with kernel size 5. This ensured that the edges were smooth and much of the random noise pixels be removed.
 
 3. Third I applied Canny edge detection on the blurred image to detect all the edges. I followed the recommended 1:3 ratio for canny and used 66 for the low threshold and 200 for the high threshold. This gave me a good set of edge pixels to work with. I added an additional gaussian blur to further cut down on noise.
 
-<img src="./examples/canny_ashi.jpg" width="240">
-<img src="./examples/canny_blur_ashi.jpg" width="240">
+    <img src="./examples/canny_ashi.jpg" width="240">
+    <img src="./examples/canny_blur_ashi.jpg" width="240">
 
 4. Next I immediately applied a Region of Interest mask on the image (A trapezoid shape to get a proper slice of the correct section of the road). I observed that nearly all of the test image data had camera mounted at the centre of the car and the car was centred on the lane. Thus I could cut out nearly 10% of the width of the image from either side at the bottom leaving with just the lane lines and the road. Similarly the road was visible clearly upto 60% of the height from the top above which the roads were unclear or horizon started. hence the top portion was clipped at 60% of height of the image, and across the width about 80pixels.
 By applying the ROI immediately I could cut down on the amout of points on which the lines needed to be detected.
 
-<img src="./examples/roi_ashi.jpg" width="240">
+    <img src="./examples/roi_ashi.jpg" width="240">
 
 5. In the next step I applied Probabilistic Hough lines function to detect lines from the region masked image. I was able increase perfomrance by cutting down on the angular resolution. I used rho =1, theta = pi/180 * 5. I made sure that I would only detect valid line segments by setting a higher threshold of 50. and made sure that collections of smaller points do not form a line by increasing the minimum line length(20) and maximum line gap(20). This gave me lines only on the correct lane line edges.
 
-<img src="./examples/lines_ashi.jpg" width="240">
+    <img src="./examples/lines_ashi.jpg" width="240">
 
 6. In the last step I super imposed the detected lane lines on top of the original image and wrote it to the test_images_output folder/file_name.jpg
 
-<img src="./examples/result_ashi.jpg" width="240">
+    <img src="./examples/result_ashi.jpg" width="240">
 
 
 In order to draw a single line on the left and right lanes, I modified the `draw_lines()` function as follows:
@@ -52,30 +52,30 @@ In order to draw a single line on the left and right lanes, I modified the `draw
    + for both left and right line use the calculated m and b values to find (x,y) coordinates from 60% of height of image to 100% of height of image
    + draw these lines.
 
-<img src="./examples/lines_extrapolated_ashi.jpg" width="240">   
-<img src="./examples/result_extrapolated_ashi.jpg" width="240">
+    <img src="./examples/lines_extrapolated_ashi.jpg" width="240">   
+    <img src="./examples/result_extrapolated_ashi.jpg" width="240">
 
 * Finally I super imposed the extrapolated lane lines on top of the original image and wrote it to the test_images_output folder/extrapolated_file_name.jpg
 
 Besides these changes, I have also made additional changes to how the image is loaded. These are as follows:
 * The list of files and base folder name are maintained in variables
-```python
-folder = "test_images/"
-files = ['file_name_1.jpg','file_name_2.jpg',...]
-```
+    ```python
+    folder = "test_images/"
+    files = ['file_name_1.jpg','file_name_2.jpg',...]
+    ```
 * Image is changed by updating the array index of `curr_file` variable:
-```python
-curr_file = files[0]
-image = mpimg.imread(folder+curr_file)
-```
+    ```python
+    curr_file = files[0]
+    image = mpimg.imread(folder+curr_file)
+    ```
 * The following code is used to show the extrapolated and non extrapolated images on jupiter notebook side by side:
-```python
-h, w, _ = image.shape
-out_img = np.zeros((h, w*2, 3),image.dtype)
-out_img[:,:w] = wgt_img
-out_img[:,w:] = wgt_img_extrapolated
-plt.imshow(out_img)
-```
+    ```python
+    h, w, _ = image.shape
+    out_img = np.zeros((h, w*2, 3),image.dtype)
+    out_img[:,:w] = wgt_img
+    out_img[:,w:] = wgt_img_extrapolated
+    plt.imshow(out_img)
+    ```
 
 
 ### 2. Potential shortcomings with the current pipeline
