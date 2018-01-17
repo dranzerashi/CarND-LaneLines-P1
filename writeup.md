@@ -35,7 +35,7 @@ By applying the ROI immediately I could cut down on the amout of points on which
 
 <img src="./examples/roi_ashi.jpg" width="240">
 
-5. In the next step I applied Probabilistic Hough lines function to detect lines from the region masked image. I was able increase perfomrance by cutting down on the angular resoulution. I used rho =1, theta = pi/180 * 5. I made sure that I would only detect valid line segments by setting a higher threshold of 50. and made sure that collections of smaller points do not form a line by increasing the minimum line length(20) and maximum line gap(20). This gave me lines only on the correct lane line edges.
+5. In the next step I applied Probabilistic Hough lines function to detect lines from the region masked image. I was able increase perfomrance by cutting down on the angular resolution. I used rho =1, theta = pi/180 * 5. I made sure that I would only detect valid line segments by setting a higher threshold of 50. and made sure that collections of smaller points do not form a line by increasing the minimum line length(20) and maximum line gap(20). This gave me lines only on the correct lane line edges.
 
 <img src="./examples/lines_ashi.jpg" width="240">
 
@@ -46,11 +46,11 @@ By applying the ROI immediately I could cut down on the amout of points on which
 
 In order to draw a single line on the left and right lanes, I modified the `draw_lines()` function as follows:
 * I added an additional keyword parameter to both `hough_lines()` function and `draw_lines()` function to take a `boolean` for extrapolation. When set to true I modify the draw_lines function to calculate single line for each of left and right lane. For this I used the following algorithm:
-   For each line detected calculate the gradient(m) and y intercept(b) (exclude lines with infinite gradient)
-   if gradient < 0 add it to the right lane else add it to the left lane.
-   calculate the average of both m and b for each lane
-   for both left and right line use the calculated m and b values to find (x,y) coordinates from 60% of height of image to 100% of height of image
-   draw these lines.
+   + For each line detected calculate the gradient(m) and y intercept(b) (exclude lines with infinite gradient)
+   + if gradient < 0 add it to the right lane else add it to the left lane.
+   + calculate the average of both m and b for each lane
+   + for both left and right line use the calculated m and b values to find (x,y) coordinates from 60% of height of image to 100% of height of image
+   + draw these lines.
 
 <img src="./examples/lines_extrapolated_ashi.jpg" width="240">   
 <img src="./examples/result_extrapolated_ashi.jpg" width="240">
@@ -90,7 +90,7 @@ plt.imshow(out_img)
 
 ### 3. Some Suggestions to possibly improve the  pipeline
 
-* A possible improvement would be to use Sobel x to prononuce vertical edges even on brightly lit areas. I tried this approach and gave slight improvements on the challenge video, however this also gave erreneous lines due to dirt or potholes on the road in the test images thus deteriorating the earlier result. Hence I have disabled the use of sobelx. 
+* A possible improvement would be to use Sobel x to prononuce vertical edges even on brightly lit areas. I tried this approach and gave slight improvements on the challenge video, however this also gave erroneous lines due to dirt or potholes on the road in the test images thus deteriorating the earlier result. Hence I have disabled the use of sobelx. 
 
 * Another potential improvement could be to split the ROI into to seperate regions left and right and process them seperately so that lines that criss cross across the road are not detected.
 
