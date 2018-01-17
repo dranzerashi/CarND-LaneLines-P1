@@ -78,7 +78,7 @@ plt.imshow(out_img)
 ```
 
 
-### 2. Identify potential shortcomings with your current pipeline
+### 2. Potential shortcomings with the current pipeline
 
 
 * One potential shortcoming would be what would happen when the roads are constantly changing from shadows to bright lights. As seen in the challenge video, I am unable to detect the edges on yellow lane marking when in brightly lit areas.
@@ -88,7 +88,7 @@ plt.imshow(out_img)
 * There can be issues with winding roads where it is no longer possible to accurately draw a straight line at all.
 
 
-### 3. Suggest possible improvements to your pipeline
+### 3. Some Suggestions to possibly improve the  pipeline
 
 * A possible improvement would be to use Sobel x to prononuce vertical edges even on brightly lit areas. I tried this approach and gave slight improvements on the challenge video, however this also gave erreneous lines due to dirt or potholes on the road in the test images thus deteriorating the earlier result. Hence I have disabled the use of sobelx. 
 
